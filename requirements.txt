@@ -9,5 +9,4 @@ langchain
 youtube-transcript-api
 pytube
 bs4
-os
 openai
