@@ -10,3 +10,4 @@ youtube-transcript-api
 pytube
 bs4
 openai
+tiktoken
