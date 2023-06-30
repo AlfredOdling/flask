@@ -1,0 +1,30 @@
+from langchain.document_loaders import YoutubeLoader, WebBaseLoader
+from langchain.llms import OpenAI
+from langchain.chains.summarize import load_summarize_chain
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.prompts import PromptTemplate
+
+OPENAI_API_KEY = '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'
+
+llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
+
+def generateText(type: str, link: str, text: str):
+    if type == "youtube":
+        loader = YoutubeLoader.from_youtube_url(link, add_video_info=False)
+        result = loader.load()
+    elif type == "website":
+        loader = WebBaseLoader(link)
+        result = loader.load()
+    elif type == "text":
+        result = text
+
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
+    texts = text_splitter.split_documents(result)
+
+    prompt_template = f"Write a concise summary of the following: ""{text}"" SUMMARY:"
+    PROMPT = PromptTemplate(template=prompt_template, input_variables=["text"])
+
+    chain = load_summarize_chain(llm, chain_type="map_reduce", map_prompt=PROMPT, combine_prompt=PROMPT)
+    res = chain({"input_documents": texts}, return_only_outputs=True)
+
+    return res

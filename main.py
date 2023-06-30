@@ -1,13 +1,15 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import os
+from ai import generateText
 
 app = Flask(__name__)
 
+@app.route('/generateText/<type>', methods=['GET'])
+def generateContent(type):
+    res = request.get_json()
+    url = generateText(type, res.get("url"), res.get("text"))
 
-@app.route('/')
-def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
-
+    return jsonify(url)
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
