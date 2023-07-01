@@ -4,7 +4,7 @@ from ai import generateText
 
 app = Flask(__name__)
 
-@app.route('/generateText/<type>', methods=['GET'])
+@app.route('/generateText/<type>', methods=['POST'])
 def generateContent(type):
     res = request.get_json()
     url = generateText(type, res.get("url"), res.get("text"))
