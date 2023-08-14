@@ -11,3 +11,4 @@ pytube
 bs4
 openai
 tiktoken
+flask_cors

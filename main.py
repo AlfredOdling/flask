@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import os
 from ai import generateText
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/generateText/<type>', methods=['POST'])
 def generateContent(type):
