@@ -11,7 +11,7 @@ def generateContent(type):
     res = request.get_json()
     data = generateText(type, res.get("url"), res.get("text"))
 
-    return jsonify([data["title"], data["content"]])
+    return jsonify({"title": data["title"], "content": data["content"]})
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))

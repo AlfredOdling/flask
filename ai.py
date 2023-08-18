@@ -27,10 +27,10 @@ def generateText(type: str, link: str, text: str):
     chain = load_summarize_chain(llm, chain_type="map_reduce", map_prompt=PROMPT, combine_prompt=PROMPT)
     content = chain({"input_documents": texts}, return_only_outputs=True)
 
-    prompt_template2 = f"Write a concise title of the following: ""{text}"" TITLE:"
-    PROMPT2 = PromptTemplate(template=prompt_template, input_variables=["text"])
+    prompt_template2 = f"Write a short title of max 15 words that describes the following: ""{text}"" TITLE:"
+    PROMPT2 = PromptTemplate(template=prompt_template2, input_variables=["text"])
 
     chain2 = load_summarize_chain(llm, chain_type="map_reduce", map_prompt=PROMPT2, combine_prompt=PROMPT2)
     title = chain2({"input_documents": texts}, return_only_outputs=True)
 
-    return { content, title }
+    return { "content": content, "title": title }
