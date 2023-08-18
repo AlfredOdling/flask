@@ -9,7 +9,7 @@ CORS(app)
 @app.route('/generateText/<type>', methods=['POST'])
 def generateContent(type):
     res = request.get_json()
-    data = generateText(type, res.get("url"), res.get("text"))
+    data = generateText(type, res.get("url"), res.get("text"), res.get("promt"))
 
     return jsonify({"title": data["title"], "content": data["content"]})
 
