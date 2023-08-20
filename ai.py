@@ -1,4 +1,4 @@
-from langchain.document_loaders import YoutubeLoader, WebBaseLoader
+from langchain.document_loaders import YoutubeLoader, WebBaseLoader, TextLoader
 from langchain.llms import OpenAI
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -18,7 +18,9 @@ def generateText(type: str, link: str, text: str, prompt: str):
         result = loader.load()
 
     elif type == "text":
-        result = text
+        loader = WebBaseLoader(text)
+        result = loader.load()
+
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
     texts = text_splitter.split_documents(result)
