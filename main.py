@@ -10,7 +10,8 @@ CORS(app)
 def generateContent(type):
     res = request.get_json()
     data = generateText(type, res.get("url"), res.get("text"), res.get("prompt"))
-
+    print(data)
+    
     return jsonify({"title": data["title"], "content": data["content"]})
 
 if __name__ == '__main__':
