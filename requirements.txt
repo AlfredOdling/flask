@@ -12,3 +12,4 @@ bs4
 openai
 tiktoken
 flask_cors
+load_dotenv

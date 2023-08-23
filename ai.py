@@ -3,10 +3,12 @@ from langchain.llms import OpenAI
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
+from dotenv import load_dotenv
+import os
 
-OPENAI_API_KEY = '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'
+load_dotenv()
 
-llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
+llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 def generateText(type: str, link: str, text: str, prompt: str):
     if type == "youtube":
