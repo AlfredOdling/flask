@@ -25,7 +25,7 @@ def generateText(type: str, link: str, text: str, prompt: str):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
     texts = text_splitter.split_documents(result)
 
-    prompt_template = f"{prompt} for this text: ""{text}"". RESULT:"
+    prompt_template = f"{prompt} from this text: ""{text}"". RESULT:"
     PROMPT = PromptTemplate(template=prompt_template, input_variables=["text"])
 
     chain = load_summarize_chain(llm, chain_type="map_reduce", map_prompt=PROMPT, combine_prompt=PROMPT)
